@@ -1,6 +1,5 @@
 # AI-2016-project1
 
-
 CS4341  
 Assignment #1  
 
