@@ -1,7 +1,9 @@
 # AI-2016-project1
 
+
 CS4341  
 Assignment #1  
+
 Due date:  9/9/16 @ 11:59 p.m.
 
 For this assignment you will learn about basic search techniques. You will use iterative
@@ -35,20 +37,21 @@ iterative
 ^ 2  
 For this problem, your program should use iterative deepening, start with the value of 4, and its
 goal is to reach a value of 11 within 2.5 seconds. Operators it is permitted to apply are adding 3
-to the current value, subtracting 1, dividing by 2, multiplying by 5, or squaring the number. **All
-arithmetic operations have the same (unit) cost.**
+to the current value, subtracting 1, dividing by 2, multiplying by 5, or squaring the number.
+** All
+arithmetic operations have the same (unit) cost. **
 
 ##What your program should output
 Your program should output the operators needed to reach the answer (or get as close as
 possible) in the following format:
-4 ^ 2 = 16
-16 / 2 = 8
-8 + 3 = 11
-Error:  0
-Number of steps required: 3
-Search required:  0.3 seconds
-Nodes expanded:  45
-Maximum search depth:  3
+4 ^ 2 = 16  
+16 / 2 = 8  
+8 + 3 = 11  
+Error:  0  
+Number of steps required: 3  
+Search required:  0.3 seconds  
+Nodes expanded:  45  
+Maximum search depth:  3  
 Output should be displayed on the console, and follow the format shown in the example. It is in
 your interest to make life easy on the grader. (the example is meant to be illustrative; the exact
 numbers provided are probably not correct so don’t worry if your program has different ones)
