@@ -1,7 +1,9 @@
 # AI-2016-project1
 
+
 CS4341  
 Assignment #1  
+
 Due date:  9/9/16 @ 11:59 p.m.
 
 For this assignment you will learn about basic search techniques. You will use iterative
