@@ -1,10 +1,14 @@
+import java.util.List;
 
-public class GreedyBestFirstSearch implements SearchMethod {
-
+public class GreedyBestFirstSearch extends Algorithm {
+	
+	public GreedyBestFirstSearch(double time, int startingNum, int targetNum, List<OptionNode> optionList) {
+		super(time, startingNum, targetNum, optionList);
+	}
+	
 	@Override
-	public OptionNode search(int startingNum) {
+	public void search(int startingNum) {
 		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

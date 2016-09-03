@@ -1,15 +1,14 @@
-
 public class OptionNode {
 	String operatorStr;
-	double value;
+	int value;
 
 	public OptionNode(String input) {
 		String[] str = input.split(" ");
 		this.operatorStr = str[0];
-		this.value = Double.parseDouble(str[1]);
+		this.value = Integer.parseInt(str[1]);
 	}
 	
-	public double operate(double input){
+	public int operate(int input){
 		switch(operatorStr){
 		case "+":
 			return input + this.value;
@@ -20,14 +19,13 @@ public class OptionNode {
 		case "/":
 			return input / this.value;
 		case "^":
-			return Math.pow(input, this.value);
+			return (int)Math.pow((double)input, (double)this.value);
 		default:
 			return input;
 		}
-
 	}
 	
-	public String print(double input){
-		return Double.toString(input) + " " + operatorStr + " " + Double.toString(this.value) + " = " + operate(input);
+	public String print(int input){
+		return Integer.toString(input) + " " + operatorStr + " " + Integer.toString(this.value) + " = " + operate(input);
 	}
 }
