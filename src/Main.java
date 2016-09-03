@@ -10,10 +10,8 @@ public class Main {
 	public static void main(String[] args) {
 		String filePath = args[0]; //get file path from command line
 		//initialize
-		String algorithmType = "";
+		String algorithmType = "", line;
 		double startingVal = 0, targetVal = 0, time = 0;
-		String line;
-		double plus = 0, minus = 0, times = 0, division = 0, power = 0;
 		List<OptionNode> options = new ArrayList();
 		
 		//read and store
