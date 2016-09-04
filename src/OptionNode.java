@@ -1,31 +1,24 @@
-public class OptionNode {
-	String operatorStr;
-	int value;
+import java.util.ArrayList;
+import java.util.List;
 
-	public OptionNode(String input) {
-		String[] str = input.split(" ");
-		this.operatorStr = str[0];
-		this.value = Integer.parseInt(str[1]);
+public class OptionNode {
+	int currentState;
+	Action action;
+	List<OptionNode> childrenList;
+
+	public OptionNode(int currentState) {
+		this.currentState = currentState;
+		this.childrenList = new ArrayList();
+	}
+
+	public int getCurrentState(){
+	return this.currentState;
 	}
 	
-	public int operate(int input){
-		switch(operatorStr){
-		case "+":
-			return input + this.value;
-		case "-":
-			return input - this.value;
-		case "*":
-			return input * this.value;
-		case "/":
-			return input / this.value;
-		case "^":
-			return (int)Math.pow((double)input, (double)this.value);
-		default:
-			return input;
+	public String printNode(){
+		if(action == null){
+			return Integer.toString(this.currentState);
 		}
-	}
-	
-	public String print(int input){
-		return Integer.toString(input) + " " + operatorStr + " " + Integer.toString(this.value) + " = " + operate(input);
+		return Integer.toString(this.currentState) + " " + action.operatorStr + " " + Integer.toString(action.operationValue) + " = " + action.getOperationResult(this.currentState);
 	}
 }
