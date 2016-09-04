@@ -3,38 +3,36 @@ import java.util.PriorityQueue;
 
 public abstract class Algorithm {
 	int error;
-	double time;
-	int startingNum;
-	int targetNum;
-	int nodesExpanded;
-	List<OptionNode> options;
+	double timeLimit;
+//	int startingNum;
+	Problem problem;
+	int numOfNodesExpanded;
+	double currTime;
+	OptionNodeList options;
 	PriorityQueue<Integer> expandedNodesQueue = new PriorityQueue<Integer>();
+	OptionNodeList result = new OptionNodeList();
 
-	public Algorithm(double time, int startingNum, int targetNum, List<OptionNode> optionList) {
+	public Algorithm(double time, int startingNum, int targetNum, List<Action> actions) {
 		this.error = 0;
-		this.time = time;
-		this.startingNum = startingNum;
-		this.targetNum = targetNum;
-		this.nodesExpanded = 0;
-		this.options = optionList;
+		this.timeLimit = time;
+//		this.startingNum = startingNum;
+		this.problem = new Problem(startingNum, targetNum, actions);
+		this.numOfNodesExpanded = 0;
 	}
 
+/**
+ * do search
+ * @param startingNum the initial state
+ * @return OptionNodeList if result found, otherwise null
+ */
+	public abstract OptionNodeList search();
 
-	public abstract void search(int startingNum);
-	// public void expandNode(); //return type TBD
-
-	/**
-	 * check if is in goal state
-	 * 
-	 * @param currentNum
-	 *            the number at current state
-	 * @return true if in goal state
-	 */
-	public boolean reachGoal(int currentNum) {
-		return currentNum == this.targetNum;
-	}
+//
+//	public boolean reachGoal(int currentNum) {
+//		return currentNum == this.targetNum;
+//	}
 	
-	public PriorityQueue<Integer> expandNode(PriorityQueue<Integer> currentQueue) {
-		return currentQueue;
-	}
+//	public PriorityQueue<Integer> expandNode(PriorityQueue<Integer> currentQueue) {
+//		return currentQueue;
+//	}
 }

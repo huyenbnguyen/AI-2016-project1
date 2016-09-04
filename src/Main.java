@@ -14,7 +14,7 @@ public class Main {
 		String algorithmType = "", line;
 		int startingVal = 0, targetVal = 0;
 		double time = 0;
-		List<OptionNode> options = new ArrayList();
+		List<Action> actions = new ArrayList();
 		
 		//read and store
 		try{
@@ -24,7 +24,7 @@ public class Main {
 			targetVal = Integer.parseInt(br.readLine());
 			time = Double.parseDouble(br.readLine());
 			while((line = br.readLine()) != null){
-				options.add(new OptionNode(line));
+				actions.add(new Action(line));
 			}
 		}
 		catch (IOException e){
@@ -32,24 +32,27 @@ public class Main {
 		}
 		
 		//print for testing purpose
-		System.out.println(algorithmType);
-		System.out.println(startingVal);
-		System.out.println(targetVal);
-		System.out.println(time);
-		for(int i = 0; i < options.size(); i++){
-			//print operation result
-			System.out.println(options.get(i).print(4));
-		}
+		printInputVariables(algorithmType, startingVal, targetVal, time);
+		
 		
 		//select different search method based on input file
 		Algorithm sm = null;
 		switch(algorithmType){
 		case "iterative":
-			sm = new IterativeDeepeningSearch(time, startingVal, targetVal, options);
+			sm = new IterativeDeepeningSearch(time, startingVal, targetVal, actions);
 			break;
 		case "greedy":
-			sm = new GreedyBestFirstSearch(time, startingVal, targetVal, options);	
+			sm = new GreedyBestFirstSearch(time, startingVal, targetVal, actions);	
 		}
+		OptionNodeList searchResult = sm.search();
+		System.out.println("search result is as follows");
+		searchResult.printList();
+	}
 
+	private static void printInputVariables(String algorithmType, int startingVal, int targetVal, double time) {
+		System.out.println(algorithmType);
+		System.out.println(startingVal);
+		System.out.println(targetVal);
+		System.out.println(time);
 	}
 }
