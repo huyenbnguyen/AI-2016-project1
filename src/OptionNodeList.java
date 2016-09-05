@@ -1,7 +1,7 @@
-import java.util.ArrayList;
+import java.util.Stack;
 import java.util.Iterator;
 
-public class OptionNodeList extends ArrayList<OptionNode>{
+public class OptionNodeList extends Stack<OptionNode>{
 	/**
 	 * indicate if the list is cut off in Depth First Search
 	 */
@@ -35,6 +35,6 @@ public class OptionNodeList extends ArrayList<OptionNode>{
 
 	public void cutOff() {
 		this.isCutOff = true;
-		
 	}
+	
 }

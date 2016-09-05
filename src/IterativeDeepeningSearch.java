@@ -4,19 +4,8 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 public class IterativeDeepeningSearch extends Algorithm {
-	/*
-	 * parent fileds:
-	 * 	int error;
-	 *	double time;
-	 *	int startingNum;
-	 *	int targetNum;
-	 *	int nodesExpanded;
-	 *	List<OptionNode> options;
-	 *	PriorityQueue<Integer> expandedNodesQueue = new PriorityQueue<Integer>();
-	 * */
 	int searchDepth;
-	//	int maxDepth = Integer.MAX_VALUE;
-	int maxDepth = 3;
+	int maxDepth = Integer.MAX_VALUE;
 
 	public IterativeDeepeningSearch(double time, int startingNum, int targetNum, List<Action> actions) {
 		super(time, startingNum, targetNum, actions);
@@ -27,6 +16,7 @@ public class IterativeDeepeningSearch extends Algorithm {
 		int depth = 0;
 		OptionNodeList result = new OptionNodeList();
 		while(!shouldStopSearching(this.currTime, depth)){
+			this.searchDepth = depth;
 			result = this.depthLimitedSearch(problem, depth);
 			if(!result.isCutOff()){
 				return result;
@@ -51,12 +41,13 @@ public class IterativeDeepeningSearch extends Algorithm {
 		return this.recursiveDLS(new OptionNode(problem.startingNum, null), problem.actions, limit, visitedList);
 	}
 	private OptionNodeList recursiveDLS(OptionNode node, List<Action> actions, int limit, OptionNodeList visitedList){
-		System.out.println(node.printNode());
+		System.out.println("limit: " + limit + " " + node.printNode());
 		visitedList.add(node);
 		if (problem.reachGoal(node.getCurrentState())) {
 			return visitedList; //success
 		} else if (limit == 0){
 			visitedList.cutOff();
+			visitedList.pop();
 			return visitedList; //cutoff
 		} else {
 			boolean isCutOff = false;
@@ -65,7 +56,7 @@ public class IterativeDeepeningSearch extends Algorithm {
 				visitedList.isCutOff = false;
 				Action currAction = actionsItr.next();
 				node.action = currAction;
-				OptionNode child = new OptionNode(node.getChildState(), null);
+				OptionNode child = new OptionNode(node.getChildState(), null); //expand node
 				OptionNodeList result = recursiveDLS(child, actions, limit - 1, visitedList);
 				if(result.isCutOff){
 					isCutOff = true;
@@ -75,17 +66,12 @@ public class IterativeDeepeningSearch extends Algorithm {
 			}
 			if(isCutOff){
 				visitedList.cutOff();
-				visitedList.remove(node);
+				visitedList.pop(); //pop failed node
 				return visitedList;
 			} else {
 				return null;
 			}
 		}
 	}
-
-	//	private OptionNode addChild(Problem problem, OptionNode node, Action currAction) {
-	//		problem.solution.childrenList.add(node);
-	//		return null;
-	//	}
 
 }
