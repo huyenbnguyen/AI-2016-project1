@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.PriorityQueue;
+import java.util.Stack;
 
 public abstract class Algorithm {
 	int error;
@@ -10,7 +11,7 @@ public abstract class Algorithm {
 	double currTime;
 	OptionNodeList options;
 	PriorityQueue<Integer> expandedNodesQueue = new PriorityQueue<Integer>();
-	OptionNodeList result = new OptionNodeList();
+	Stack<OptionNodeList> frontier = new Stack();
 
 	public Algorithm(double time, int startingNum, int targetNum, List<Action> actions) {
 		this.error = 0;
@@ -27,12 +28,4 @@ public abstract class Algorithm {
  */
 	public abstract OptionNodeList search();
 
-//
-//	public boolean reachGoal(int currentNum) {
-//		return currentNum == this.targetNum;
-//	}
-	
-//	public PriorityQueue<Integer> expandNode(PriorityQueue<Integer> currentQueue) {
-//		return currentQueue;
-//	}
 }
