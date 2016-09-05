@@ -1,6 +1,16 @@
-
+/**
+ * Class that holds information about an action that can be operated on a state
+ * @author yinglu
+ *
+ */
 public class Action {
+	/**
+	 * operator
+	 */
 	String operatorStr = "";
+	/**
+	 * the value that should be operated onto current state
+	 */
 	int operationValue;
 	
 	public Action(String input) {
@@ -11,7 +21,6 @@ public class Action {
 	
 	/**
 	 * given a input number, calculate the result of executing the operation stored in this current node
-	 * then store the result in this.resultValue
 	 * @param input the input number
 	 * @return the result of the operation
 	 */

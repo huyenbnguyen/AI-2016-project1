@@ -1,27 +1,31 @@
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.PriorityQueue;
 
+/**
+ * Iterative Deepening Search algorithm
+ * @author yinglu
+ *
+ */
 public class IterativeDeepeningSearch extends Algorithm {
-	int searchDepth;
 	int maxDepth = Integer.MAX_VALUE;
 
 	public IterativeDeepeningSearch(double time, int startingNum, int targetNum, List<Action> actions) {
 		super(time, startingNum, targetNum, actions);
-		this.searchDepth = 0;
 	}
 
-	public OptionNodeList search() {
+	/**
+	 * see parent: Algorithm.java
+	 */
+	public StateNodeList search() {
 		int depth = 0;
-		OptionNodeList result = new OptionNodeList();
+		StateNodeList result = new StateNodeList();
 		while(!shouldStopSearching(this.currTime, depth)){
 			this.searchDepth = depth;
 			result = this.depthLimitedSearch(problem, depth);
 			if(!result.isCutOff()){
 				return result;
 			}
-			depth++;
+			depth++; //add depth if fail to find solution
 		}
 		return null;
 	}
@@ -30,45 +34,63 @@ public class IterativeDeepeningSearch extends Algorithm {
 	 * test if the search should be cut off
 	 * @param currTime time spent on searching so far
 	 * @param depth the depth reached so far
-	 * @return true if exceeds time limit or depth limit
+	 * @return true if exceeds time limit or depth limit, else false
 	 */
 	private boolean shouldStopSearching(double currTime, int depth) {
 		return currTime>=this.timeLimit || depth > this.maxDepth;
 	}
 
-	private OptionNodeList depthLimitedSearch(Problem problem, int limit){
-		OptionNodeList visitedList = new OptionNodeList();
-		return this.recursiveDLS(new OptionNode(problem.startingNum, null), problem.actions, limit, visitedList);
+	/**
+	 * depth limited search: DFL with depth limit
+	 * @param problem
+	 * @param limit depth limit
+	 * @return OptionNodeList solution
+	 */
+	private StateNodeList depthLimitedSearch(Problem problem, int limit){
+		StateNodeList visitedList = new StateNodeList();
+		return this.recursiveDLS(new StateNode(problem.startingNum, null), problem.actions, limit, visitedList);
 	}
-	private OptionNodeList recursiveDLS(OptionNode node, List<Action> actions, int limit, OptionNodeList visitedList){
-		System.out.println("limit: " + limit + " " + node.printNode());
-		visitedList.add(node);
-		if (problem.reachGoal(node.getCurrentState())) {
+	
+	/**
+	 * depth limited search in recursion
+	 * @param currentState 
+	 * @param actions actions available
+	 * @param limit depth limit
+	 * @param visitedList solution path
+	 * @return
+	 */
+	private StateNodeList recursiveDLS(StateNode currentState, List<Action> actions, int limit, StateNodeList visitedList){
+		visitedList.add(currentState);
+		if (problem.reachGoal(currentState.getCurrentState())) {
 			return visitedList; //success
 		} else if (limit == 0){
-			visitedList.cutOff();
-			visitedList.pop();
+			visitedList.setCutOff(true); //mark cutoff
+			visitedList.pop(); //remove unsuccessful nodes
 			return visitedList; //cutoff
 		} else {
 			boolean isCutOff = false;
-			Iterator<Action> actionsItr = actions.iterator();
+			Iterator<Action> actionsItr = actions.iterator(); //loop thru all actions in action list
 			while(actionsItr.hasNext()){
-				visitedList.isCutOff = false;
+				visitedList.setCutOff(false); //reset cut off flag
 				Action currAction = actionsItr.next();
-				node.action = currAction;
-				OptionNode child = new OptionNode(node.getChildState(), null); //expand node
-				OptionNodeList result = recursiveDLS(child, actions, limit - 1, visitedList);
+				currentState.action = currAction; //set action in node in order to expand
+				//for testing purpose
+//				System.out.println("limit: " + limit + "    " + currentState.printNode()); 
+				StateNode child = new StateNode(currentState.getChildState(), null); //create child nodes
+				this.numOfNodesExpanded++;
+				StateNodeList result = recursiveDLS(child, actions, limit - 1, visitedList); //recursive call to examine the child
 				if(result.isCutOff){
-					isCutOff = true;
-				} else if (!result.isEmpty()){
+					isCutOff = true; //if any of the children returns a cutoff, mark cutoff
+				} else if (!result.isEmpty()){ //if there is a solution (not cutoff or failure)
 					return result;
 				}
 			}
+			//up to this point, if there is a solution, it should have been returned, which only leaves cutoff and failure cases
 			if(isCutOff){
-				visitedList.cutOff();
+				visitedList.setCutOff(true);
 				visitedList.pop(); //pop failed node
 				return visitedList;
-			} else {
+			} else { //if not cut off, then it's a failure, return null in this case
 				return null;
 			}
 		}
