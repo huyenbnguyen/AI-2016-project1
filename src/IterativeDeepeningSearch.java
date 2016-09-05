@@ -4,18 +4,19 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 public class IterativeDeepeningSearch extends Algorithm {
-/*
- * parent fileds:
- * 	int error;
- *	double time;
- *	int startingNum;
- *	int targetNum;
- *	int nodesExpanded;
- *	List<OptionNode> options;
- *	PriorityQueue<Integer> expandedNodesQueue = new PriorityQueue<Integer>();
- * */
+	/*
+	 * parent fileds:
+	 * 	int error;
+	 *	double time;
+	 *	int startingNum;
+	 *	int targetNum;
+	 *	int nodesExpanded;
+	 *	List<OptionNode> options;
+	 *	PriorityQueue<Integer> expandedNodesQueue = new PriorityQueue<Integer>();
+	 * */
 	int searchDepth;
-	int maxDepth = Integer.MAX_VALUE;
+	//	int maxDepth = Integer.MAX_VALUE;
+	int maxDepth = 3;
 
 	public IterativeDeepeningSearch(double time, int startingNum, int targetNum, List<Action> actions) {
 		super(time, startingNum, targetNum, actions);
@@ -24,16 +25,17 @@ public class IterativeDeepeningSearch extends Algorithm {
 
 	public OptionNodeList search() {
 		int depth = 0;
-		
-	while(!shouldStopSearching(this.currTime, depth)){
-			this.result = this.depthLimitedSearch(problem, depth);
-			if(!this.result.isCutOff()){
-				return this.result;
+		OptionNodeList result = new OptionNodeList();
+		while(!shouldStopSearching(this.currTime, depth)){
+			result = this.depthLimitedSearch(problem, depth);
+			if(!result.isCutOff()){
+				return result;
 			}
+			depth++;
 		}
 		return null;
 	}
-	
+
 	/**
 	 * test if the search should be cut off
 	 * @param currTime time spent on searching so far
@@ -45,22 +47,26 @@ public class IterativeDeepeningSearch extends Algorithm {
 	}
 
 	private OptionNodeList depthLimitedSearch(Problem problem, int limit){
-		return this.recursiveDLS(new OptionNode(problem.startingNum), problem, limit);
+		OptionNodeList visitedList = new OptionNodeList();
+		return this.recursiveDLS(new OptionNode(problem.startingNum, null), problem.actions, limit, visitedList);
 	}
-	private OptionNodeList recursiveDLS(OptionNode node, Problem problem, int limit){
+	private OptionNodeList recursiveDLS(OptionNode node, List<Action> actions, int limit, OptionNodeList visitedList){
+		System.out.println(node.printNode());
+		visitedList.add(node);
 		if (problem.reachGoal(node.getCurrentState())) {
-			this.result.add(node);
-			return this.result;
+			return visitedList; //success
 		} else if (limit == 0){
-			this.result.cutOff();
-			return this.result;
+			visitedList.cutOff();
+			return visitedList; //cutoff
 		} else {
 			boolean isCutOff = false;
-			Iterator<Action> actions = problem.actions.iterator();
-			while(actions.hasNext()){
-				Action currAction = actions.next();
-				OptionNode child = addChild(problem, node, currAction);
-				result = recursiveDLS(child, problem, limit - 1);
+			Iterator<Action> actionsItr = actions.iterator();
+			while(actionsItr.hasNext()){
+				visitedList.isCutOff = false;
+				Action currAction = actionsItr.next();
+				node.action = currAction;
+				OptionNode child = new OptionNode(node.getChildState(), null);
+				OptionNodeList result = recursiveDLS(child, actions, limit - 1, visitedList);
 				if(result.isCutOff){
 					isCutOff = true;
 				} else if (!result.isEmpty()){
@@ -68,17 +74,18 @@ public class IterativeDeepeningSearch extends Algorithm {
 				}
 			}
 			if(isCutOff){
-				result.cutOff();
-				return result;
+				visitedList.cutOff();
+				visitedList.remove(node);
+				return visitedList;
 			} else {
 				return null;
 			}
 		}
 	}
 
-	private OptionNode addChild(Problem problem, OptionNode node, Action currAction) {
-		problem.solution.childrenList.add(node);
-		return null;
-	}
+	//	private OptionNode addChild(Problem problem, OptionNode node, Action currAction) {
+	//		problem.solution.childrenList.add(node);
+	//		return null;
+	//	}
 
 }

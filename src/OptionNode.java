@@ -6,13 +6,18 @@ public class OptionNode {
 	Action action;
 	List<OptionNode> childrenList;
 
-	public OptionNode(int currentState) {
+	public OptionNode(int currentState, Action action) {
 		this.currentState = currentState;
+		this.action = action;
 		this.childrenList = new ArrayList();
 	}
 
 	public int getCurrentState(){
 	return this.currentState;
+	}
+	
+	public int getChildState(){
+		return action.getOperationResult(currentState);
 	}
 	
 	public String printNode(){
