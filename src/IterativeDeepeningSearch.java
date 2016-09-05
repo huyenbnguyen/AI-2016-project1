@@ -18,15 +18,21 @@ public class IterativeDeepeningSearch extends Algorithm {
 	 */
 	public StateNodeList search() {
 		int depth = 0;
+		long startTime = 0, endTime = 0;
+		startTime = System.currentTimeMillis();
 		StateNodeList result = new StateNodeList();
-		while(!shouldStopSearching(this.currTime, depth)){
+		while(!shouldStopSearching(this.timeSpent, depth)){
 			this.searchDepth = depth;
 			result = this.depthLimitedSearch(problem, depth);
 			if(!result.isCutOff()){
+				endTime = System.currentTimeMillis();
+				this.timeSpent = endTime - startTime;
 				return result;
 			}
 			depth++; //add depth if fail to find solution
 		}
+		endTime = System.currentTimeMillis();
+		this.timeSpent = endTime - startTime;
 		return null;
 	}
 
