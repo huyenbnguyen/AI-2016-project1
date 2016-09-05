@@ -14,8 +14,8 @@ public class Main {
 		String algorithmType = "", line;
 		int startingVal = 0, targetVal = 0;
 		double time = 0;
-		List<Action> actions = new ArrayList();
-		
+		List<Action> actions = new ArrayList<Action>();
+
 		//read and store
 		try{
 			BufferedReader br = new BufferedReader(new FileReader(filePath));
@@ -30,11 +30,11 @@ public class Main {
 		catch (IOException e){
 			System.out.println("Error reading input file: "+e.getMessage());
 		}
-		
+
 		//print for testing purpose
 		printInputVariables(algorithmType, startingVal, targetVal, time);
-		
-		
+
+
 		//select different search method based on input file
 		Algorithm sm = null;
 		switch(algorithmType){
@@ -44,15 +44,21 @@ public class Main {
 		case "greedy":
 			sm = new GreedyBestFirstSearch(time, startingVal, targetVal, actions);	
 		}
-		OptionNodeList searchResult = sm.search();
+		StateNodeList searchResult = sm.search();
 		System.out.println("search result is as follows");
 		searchResult.printList();
+		printSearchResult(sm);
 	}
 
 	private static void printInputVariables(String algorithmType, int startingVal, int targetVal, double time) {
-		System.out.println(algorithmType);
-		System.out.println(startingVal);
-		System.out.println(targetVal);
-		System.out.println(time);
+		System.out.println("algorithm type: " + algorithmType);
+		System.out.println("starting value: " + startingVal);
+		System.out.println("target value: " + targetVal);
+		System.out.println("time: " + time);
+	}
+
+	private static void printSearchResult(Algorithm sm){
+		System.out.println("Nodes expanded in this search: " + sm.getNumOfNodesExpanded());
+		System.out.println("Search depth reached in this search: " + sm.getSearchDepth());
 	}
 }
