@@ -1,14 +1,19 @@
 import java.util.Stack;
 import java.util.Iterator;
 
-public class OptionNodeList extends Stack<OptionNode>{
+/**
+ * A list of state nodes using stack (LIFO)
+ * @author yinglu
+ *
+ */
+public class StateNodeList extends Stack<StateNode>{
 	/**
 	 * indicate if the list is cut off in Depth First Search
 	 */
 	boolean isCutOff;
 	
 	
-	public OptionNodeList(){
+	public StateNodeList(){
 		super();
 		this.isCutOff = false;
 	}
@@ -26,15 +31,20 @@ public class OptionNodeList extends Stack<OptionNode>{
 	 * @param startingNum
 	 */
 	public void printList(){
-		Iterator<OptionNode> itr = this.iterator();
+		Iterator<StateNode> itr = this.iterator();
 		while (itr.hasNext()){
-			OptionNode node = itr.next();
+			StateNode node = itr.next();
 			System.out.println(node.printNode());
 		}
 	}
 
-	public void cutOff() {
-		this.isCutOff = true;
+	/**
+	 * setter for isCutOff flag
+	 * @param isCutOff
+	 */
+	public void setCutOff(boolean isCutOff) {
+		this.isCutOff = isCutOff;
 	}
+
 	
 }
