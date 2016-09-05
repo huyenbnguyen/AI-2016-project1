@@ -7,7 +7,7 @@ public class GreedyBestFirstSearch extends Algorithm {
 	}
 	
 	@Override
-	public StateNodeList search() {
+	public ItrDpStateNodeStack search() {
 		// TODO Auto-generated method stub
 		return null;
 	}

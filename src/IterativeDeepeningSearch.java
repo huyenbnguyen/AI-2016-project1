@@ -16,11 +16,11 @@ public class IterativeDeepeningSearch extends Algorithm {
 	/**
 	 * see parent: Algorithm.java
 	 */
-	public StateNodeList search() {
+	public ItrDpStateNodeStack search() {
 		int depth = 0;
 		long startTime = 0, endTime = 0;
 		startTime = System.currentTimeMillis();
-		StateNodeList result = new StateNodeList();
+		ItrDpStateNodeStack result = new ItrDpStateNodeStack();
 		while(!shouldStopSearching(this.timeSpent, depth)){
 			this.searchDepth = depth;
 			result = this.depthLimitedSearch(problem, depth);
@@ -52,8 +52,8 @@ public class IterativeDeepeningSearch extends Algorithm {
 	 * @param limit depth limit
 	 * @return OptionNodeList solution
 	 */
-	private StateNodeList depthLimitedSearch(Problem problem, int limit){
-		StateNodeList visitedList = new StateNodeList();
+	private ItrDpStateNodeStack depthLimitedSearch(Problem problem, int limit){
+		ItrDpStateNodeStack visitedList = new ItrDpStateNodeStack();
 		return this.recursiveDLS(new StateNode(problem.startingNum, null), problem.actions, limit, visitedList);
 	}
 	
@@ -65,7 +65,7 @@ public class IterativeDeepeningSearch extends Algorithm {
 	 * @param visitedList solution path
 	 * @return
 	 */
-	private StateNodeList recursiveDLS(StateNode currentState, List<Action> actions, int limit, StateNodeList visitedList){
+	private ItrDpStateNodeStack recursiveDLS(StateNode currentState, List<Action> actions, int limit, ItrDpStateNodeStack visitedList){
 		visitedList.add(currentState);
 		if (problem.reachGoal(currentState.getCurrentState())) {
 			return visitedList; //success
@@ -81,10 +81,9 @@ public class IterativeDeepeningSearch extends Algorithm {
 				Action currAction = actionsItr.next();
 				currentState.action = currAction; //set action in node in order to expand
 				//for testing purpose
-//				System.out.println("limit: " + limit + "    " + currentState.printNode()); 
 				StateNode child = new StateNode(currentState.getChildState(), null); //create child nodes
 				this.numOfNodesExpanded++;
-				StateNodeList result = recursiveDLS(child, actions, limit - 1, visitedList); //recursive call to examine the child
+				ItrDpStateNodeStack result = recursiveDLS(child, actions, limit - 1, visitedList); //recursive call to examine the child
 				if(result.isCutOff){
 					isCutOff = true; //if any of the children returns a cutoff, mark cutoff
 				} else if (!result.isEmpty()){ //if there is a solution (not cutoff or failure)

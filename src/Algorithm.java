@@ -28,7 +28,7 @@ public abstract class Algorithm {
 	 * @param startingNum the initial state
 	 * @return OptionNodeList if result found. In case of cutoff, check OptionNodeList.isCutOff flag. In case of a failure, would return null.
 	 */
-	public abstract StateNodeList search();
+	public abstract ItrDpStateNodeStack search();
 
 	/**
 	 * getter for number of nodes expanded in the search

@@ -44,7 +44,7 @@ public class Main {
 		case "greedy":
 			sm = new GreedyBestFirstSearch(time, startingVal, targetVal, actions);	
 		}
-		StateNodeList searchResult = sm.search();
+		ItrDpStateNodeStack searchResult = sm.search();
 		if (searchResult.isCutOff){
 			System.out.println("Search is cut off.");
 		}
