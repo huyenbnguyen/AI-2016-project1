@@ -45,6 +45,9 @@ public class Main {
 			sm = new GreedyBestFirstSearch(time, startingVal, targetVal, actions);	
 		}
 		StateNodeList searchResult = sm.search();
+		if (searchResult.isCutOff){
+			System.out.println("Search is cut off.");
+		}
 		System.out.println("search result is as follows");
 		searchResult.printList();
 		printSearchResult(sm);
@@ -54,11 +57,12 @@ public class Main {
 		System.out.println("algorithm type: " + algorithmType);
 		System.out.println("starting value: " + startingVal);
 		System.out.println("target value: " + targetVal);
-		System.out.println("time: " + time);
+		System.out.println("time limit: " + time);
 	}
 
 	private static void printSearchResult(Algorithm sm){
 		System.out.println("Nodes expanded in this search: " + sm.getNumOfNodesExpanded());
 		System.out.println("Search depth reached in this search: " + sm.getSearchDepth());
+		System.out.println("Time spent in this search: " + sm.getTimeSpent() + " ms");
 	}
 }

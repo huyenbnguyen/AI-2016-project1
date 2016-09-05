@@ -1,3 +1,4 @@
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ public abstract class Algorithm {
 	double timeLimit;
 	Problem problem;
 	int numOfNodesExpanded;
-	double currTime;
+	long timeSpent;
 	int searchDepth;
 
 	public Algorithm(double time, int startingNum, int targetNum, List<Action> actions) {
@@ -43,6 +44,14 @@ public abstract class Algorithm {
 	 */
 	public int getSearchDepth(){
 		return this.searchDepth;
+	}
+	
+	/**
+	 * getter for the time spent in the search so far
+	 * @return String (using DecimalFormat)
+	 */
+	public long getTimeSpent(){
+		return this.timeSpent; //to convert from millisecond to second
 	}
 	
 }
