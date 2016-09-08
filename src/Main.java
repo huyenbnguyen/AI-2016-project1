@@ -44,8 +44,21 @@ public class Main {
 			sm = new GreedyBestFirstSearch(time, startingVal, targetVal, actions);	
 		}
 		ItrDpStateNodeStack searchResult = sm.search();
-			searchResult.printList();
-			printSearchResult(sm);
+
+		if (searchResult.isCutOff){
+			System.out.println("Search is cut off.");
+		}
+		System.out.println("search result is as follows");
+		switch (algorithmType) {
+			case "iterative":
+				searchResult.printList();
+				break;
+			case "greedy" :
+				searchResult.printReverseList();
+		}
+		//searchResult.printList();
+		printSearchResult(sm);
+
 	}
 
 	private static void printInputVariables(String filePath, String algorithmType, int startingVal, int targetVal, double time) {

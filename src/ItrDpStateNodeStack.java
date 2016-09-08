@@ -32,6 +32,11 @@ public class ItrDpStateNodeStack  extends Stack<StateNode> implements StateNodeL
 		}
 	}
 
+	public void printReverseList() {
+		while (!this.isEmpty()) {
+			System.out.println(this.pop().printNode());
+		}
+	}
 	public void setCutOff(boolean isCutOff) {
 		this.isCutOff = isCutOff;
 	}
