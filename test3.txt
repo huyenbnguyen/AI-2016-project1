@@ -1,8 +1,7 @@
-iterative
+greedy
 2
 15
 10
 ^ 2
 + 4
 - 1
-
