@@ -8,7 +8,6 @@ public interface StateNodeList {
 	
 	/**
 	 * print list given the first number
-	 * @param startingNum
 	 */
 	public void printList();
 	

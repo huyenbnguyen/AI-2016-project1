@@ -49,7 +49,14 @@ public class Main {
 			System.out.println("Search is cut off.");
 		}
 		System.out.println("search result is as follows");
-		searchResult.printList();
+		switch (algorithmType) {
+			case "iterative":
+				searchResult.printList();
+				break;
+			case "greedy" :
+				searchResult.printReverseList();
+		}
+		//searchResult.printList();
 		printSearchResult(sm);
 	}
 

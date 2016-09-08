@@ -16,6 +16,7 @@ public class StateNode {
 	 */
 	Action action;
 
+
 	public StateNode(int currentState, Action action) {
 		this.currentState = currentState;
 		this.action = action;
