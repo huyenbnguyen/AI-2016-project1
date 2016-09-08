@@ -1,4 +1,4 @@
-iterative
+greedy
 1
 0
 2
