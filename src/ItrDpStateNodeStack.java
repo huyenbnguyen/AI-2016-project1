@@ -37,6 +37,7 @@ public class ItrDpStateNodeStack  extends Stack<StateNode> implements StateNodeL
 			System.out.println(this.pop().printNode());
 		}
 	}
+
 	public void setCutOff(boolean isCutOff) {
 		this.isCutOff = isCutOff;
 	}

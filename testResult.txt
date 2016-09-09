@@ -67,10 +67,122 @@ Nodes expanded: 3
 Search depth reached in this search: 2
 Time spent in this search: 2 ms
 
-========== test 1 ===========
+========== test 8 ===========
 Search is cut off. No path found within time/depth limit.
 Error: 0
 Number of steps required: -1
 Nodes expanded: 3587219
 Search depth reached in this search: 14
 Time spent in this search: 1455 ms
+
+========= test 9 ============
+4 + 3 = 7
+7 + 3 = 10
+10 + 3 = 13
+13 - 1 = 12
+12 - 1 = 11
+11
+Error: 0
+Number of steps required: 5
+Nodes expanded: 30
+Search depth reached in this search: 5
+Time spent in this search: 2 ms
+
+Process finished with exit code 0
+======== test 10 ================
+3 * 9 = 27
+27 * 3 = 81
+81
+Error: 0
+Number of steps required: 2
+Nodes expanded: 9
+Search depth reached in this search: 2
+Time spent in this search: 1 ms
+
+Process finished with exit code 0
+
+======== test 11 ============
+2 + 4 = 6
+6 + 4 = 10
+10 + 4 = 14
+14 - 1 = 13
+13 + 4 = 17
+17 - 1 = 16
+16 - 1 = 15
+15
+Error: 0
+Number of steps required: 7
+Nodes expanded: 24
+Search depth reached in this search: 7
+Time spent in this search: 2 ms
+
+Process finished with exit code 0
+======== test 12 ========
+3 ^ 2 = 9
+9 ^ 2 = 81
+81
+Error: 0
+Number of steps required: 2
+Nodes expanded: 15
+Search depth reached in this search: 2
+Time spent in this search: 2 ms
+
+Process finished with exit code 0
+======== test 13 ======
+1 + 2 = 3
+3
+Error: 0
+Number of steps required: 1
+Nodes expanded: 8
+Search depth reached in this search: 1
+Time spent in this search: 2 ms
+
+Process finished with exit code 0
+
+======== test 14 ======
+1 + 100 = 101
+101 + 100 = 201
+201 + 100 = 301
+301 + 100 = 401
+401 + 100 = 501
+501 + 100 = 601
+601 + 100 = 701
+701 + 100 = 801
+801 + 100 = 901
+901 + 40 = 941
+941 + 40 = 981
+981 + 19 = 1000
+1000
+Error: 0
+Number of steps required: 12
+Nodes expanded: 2911
+Search depth reached in this search: 12
+Time spent in this search: 32 ms
+
+Process finished with exit code 0
+======== test 15 ======
+1 + 100000000 = 100000001
+......
+......
+......
+100001411 + 1 = 100001412
+Error: 1412
+Number of steps required: 1412
+Nodes expanded: 4239
+Search depth reached in this search: 1412
+Time spent in this search: 1000 ms
+
+Process finished with exit code 0
+======== test 16 ======
+1 + 3 = 4
+...
+...
+...
+1294 + 3 = 1297
+Error: 1297
+Number of steps required: 432
+Nodes expanded: 3891
+Search depth reached in this search: 432
+Time spent in this search: 2001 ms
+
+Process finished with exit code 0

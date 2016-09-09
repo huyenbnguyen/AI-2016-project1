@@ -9,7 +9,9 @@ import java.util.List;
 public class Main {
 
 	public static void main(String[] args) {
-		String filePath = args[0]; //get file path from command line
+
+		//String filePath = args[0]; //get file path from command line
+		String filePath = "test16.txt";
 		//initialize
 		String algorithmType = "", line;
 		int startingVal = 0, targetVal = 0;

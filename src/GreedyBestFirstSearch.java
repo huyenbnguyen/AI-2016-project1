@@ -3,12 +3,14 @@ import java.util.List;
 
 public class GreedyBestFirstSearch extends Algorithm {
 
-
 	double time;
 	int startingNum;
 	int targetNum;
 	List<Action> actions;
 	List<Integer> visited;
+	int nSteps = 0;
+
+	long startTime;
 
 	GreedyNodeLinkedList nodeList = new GreedyNodeLinkedList();
 
@@ -25,6 +27,8 @@ public class GreedyBestFirstSearch extends Algorithm {
 
 	@Override
 	public ItrDpStateNodeStack search() {
+		startTime = System.currentTimeMillis();
+
 		int bestHeuristic;
 		Action startAction = new Action("+ 0");
 		nodeList.add(new GreedyNode(startingNum, startAction, startingNum, 0 ));
@@ -32,8 +36,10 @@ public class GreedyBestFirstSearch extends Algorithm {
 		ItrDpStateNodeStack result = new ItrDpStateNodeStack();
 
 		GreedyNode frontier = nodeList.get(0);
-		while (frontier.getCurrentState() != targetNum){
+		while ((frontier.getCurrentState() != targetNum) &&
+				((System.currentTimeMillis() - startTime) < (time * 1000))){
 			frontier = nodeList.get(0);
+
 			bestHeuristic = Integer.MAX_VALUE;
 			//Find the one with the best heuristic
 			for (int i = 0; i < nodeList.size(); i++) {
@@ -47,29 +53,32 @@ public class GreedyBestFirstSearch extends Algorithm {
 			ExpandNodeList(frontier);
 		}
 
-
+		timeSpent = System.currentTimeMillis() - startTime;
+		error = Math.abs(frontier.getCurrentState() - targetNum);
 
 		result.push(new StateNode(frontier.getCurrentState(),null));
 		while (frontier.getDepth()>0) {
-			int p = frontier.getPreviousValue();
+			int p = frontier.getPreviousState();
 			Action a = null;
 			for (int i = 0;i < actions.size();i++) {
 				if (actions.get(i).getOperationResult(p) == frontier.getCurrentState()) {
 					a = actions.get(i);
 				}
 			}
-			StateNode s = new StateNode(frontier.getPreviousValue(),a);
+
+			StateNode s = new StateNode(frontier.getPreviousState(),a);
 			result.push(s);
 
 
 			for (int i =0;i<nodeList.size();i++){
-				if (nodeList.get(i).getCurrentState() == frontier.getPreviousValue()) {
+				if (nodeList.get(i).getCurrentState() == frontier.getPreviousState()) {
 					frontier = nodeList.get(i);
 					break;
 				}
 			}
-		}
 
+		}
+		nSteps = result.size();
 		return result;
 
 	}
@@ -94,8 +103,7 @@ public class GreedyBestFirstSearch extends Algorithm {
 
 	@Override
 	public int getNumberOfSteps() {
-		// TODO Auto-generated method stub
-		return 0;
+		return nSteps - 1;
 	}
 
 }

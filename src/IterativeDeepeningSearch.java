@@ -32,9 +32,11 @@ public class IterativeDeepeningSearch extends Algorithm {
 			this.timeSpent += this.currSearchTime;	
 			depth++; //add depth if fail to find solution
 			if(!result.isCutOff()){
+				error = 0;
 				return result;
 			}
-		}	
+		}
+		error = problem.startingNum;
 		return result;
 	}
 
