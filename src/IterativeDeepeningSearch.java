@@ -8,8 +8,9 @@ import java.util.List;
  */
 public class IterativeDeepeningSearch extends Algorithm {
 	int maxDepth = Integer.MAX_VALUE;
+	long preTime = 0;
 
-	public IterativeDeepeningSearch(double time, int startingNum, int targetNum, List<Action> actions) {
+	public IterativeDeepeningSearch(long time, int startingNum, int targetNum, List<Action> actions) {
 		super(time, startingNum, targetNum, actions);
 	}
 
@@ -18,32 +19,42 @@ public class IterativeDeepeningSearch extends Algorithm {
 	 */
 	public ItrDpStateNodeStack search() {
 		int depth = 0;
-		long startTime = 0, endTime = 0;
-		startTime = System.currentTimeMillis();
+		long startTime = System.currentTimeMillis(), endTime = 0;
 		ItrDpStateNodeStack result = new ItrDpStateNodeStack();
-		while(!shouldStopSearching(this.timeSpent, depth)){
+		this.preTime = this.currSearchTime;
+		while(resumeSearching(this.timeSpent, depth)){
 			this.searchDepth = depth;
 			result = this.depthLimitedSearch(problem, depth);
+			endTime = System.currentTimeMillis();
+			this.currSearchTime = endTime - startTime;
+			this.timeSpent += this.currSearchTime;	
+			depth++; //add depth if fail to find solution
 			if(!result.isCutOff()){
-				endTime = System.currentTimeMillis();
-				this.timeSpent = endTime - startTime;
 				return result;
 			}
-			depth++; //add depth if fail to find solution
-		}
-		endTime = System.currentTimeMillis();
-		this.timeSpent = endTime - startTime;
-		return null;
+		}	
+		return result;
 	}
 
 	/**
 	 * test if the search should be cut off
 	 * @param currTime time spent on searching so far
 	 * @param depth the depth reached so far
-	 * @return true if exceeds time limit or depth limit, else false
+	 * @return true if not exceeds time limit or depth limit, else false
 	 */
-	private boolean shouldStopSearching(double currTime, int depth) {
-		return currTime>=this.timeLimit || depth > this.maxDepth;
+	private boolean resumeSearching(long currTime, int depth) {
+		return enoughTime() && depth <= this.maxDepth;
+	}
+
+	private boolean enoughTime(){
+		boolean hasEnoughTime;
+		if(this.preTime == 0){
+			this.preTime = this.currSearchTime;
+			return true;
+		}
+		hasEnoughTime = (this.timeLimit - this.timeSpent) > (this.currSearchTime/this.preTime) * this.currSearchTime;
+		this.preTime = this.currSearchTime;
+		return hasEnoughTime;
 	}
 
 	/**
@@ -56,7 +67,7 @@ public class IterativeDeepeningSearch extends Algorithm {
 		ItrDpStateNodeStack visitedList = new ItrDpStateNodeStack();
 		return this.recursiveDLS(new StateNode(problem.startingNum, null), problem.actions, limit, visitedList);
 	}
-	
+
 	/**
 	 * depth limited search in recursion
 	 * @param currentState 
@@ -74,6 +85,7 @@ public class IterativeDeepeningSearch extends Algorithm {
 			visitedList.pop(); //remove unsuccessful nodes
 			return visitedList; //cutoff
 		} else {
+			this.numOfNodesExpanded++;
 			boolean isCutOff = false;
 			Iterator<Action> actionsItr = actions.iterator(); //loop thru all actions in action list
 			while(actionsItr.hasNext()){
@@ -82,7 +94,6 @@ public class IterativeDeepeningSearch extends Algorithm {
 				currentState.action = currAction; //set action in node in order to expand
 				//for testing purpose
 				StateNode child = new StateNode(currentState.getChildState(), null); //create child nodes
-				this.numOfNodesExpanded++;
 				ItrDpStateNodeStack result = recursiveDLS(child, actions, limit - 1, visitedList); //recursive call to examine the child
 				if(result.isCutOff){
 					isCutOff = true; //if any of the children returns a cutoff, mark cutoff

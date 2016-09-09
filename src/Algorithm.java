@@ -9,18 +9,21 @@ import java.util.List;
  */
 public abstract class Algorithm {
 	int error;
-	double timeLimit;
+	long timeLimit;
 	Problem problem;
 	int numOfNodesExpanded;
 	long timeSpent;
+	long currSearchTime;
 	int searchDepth;
 
-	public Algorithm(double time, int startingNum, int targetNum, List<Action> actions) {
+	public Algorithm(long time, int startingNum, int targetNum, List<Action> actions) {
 		this.error = 0;
-		this.timeLimit = time;
+		this.timeLimit = time * 1000;
 		this.problem = new Problem(startingNum, targetNum, actions);
 		this.numOfNodesExpanded = 0;
 		this.searchDepth = 0;
+		this.currSearchTime = 0;
+		this.timeSpent = 0;
 	}
 
 	/**
