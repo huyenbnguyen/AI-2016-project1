@@ -17,4 +17,6 @@ public interface StateNodeList {
 	 * @param isCutOff
 	 */
 	public void setCutOff(boolean isCutOff);
+
+	public int length();
 }

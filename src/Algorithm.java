@@ -1,4 +1,3 @@
-import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -9,14 +8,15 @@ import java.util.List;
  */
 public abstract class Algorithm {
 	int error;
-	long timeLimit;
+	double timeLimit;
 	Problem problem;
 	int numOfNodesExpanded;
 	long timeSpent;
 	long currSearchTime;
 	int searchDepth;
+	StateNodeList path;
 
-	public Algorithm(long time, int startingNum, int targetNum, List<Action> actions) {
+	public Algorithm(double time, int startingNum, int targetNum, List<Action> actions) {
 		this.error = 0;
 		this.timeLimit = time * 1000;
 		this.problem = new Problem(startingNum, targetNum, actions);
@@ -55,6 +55,13 @@ public abstract class Algorithm {
 	 */
 	public long getTimeSpent(){
 		return this.timeSpent; //to convert from millisecond to second
+	}
+	/**
+	 * getter for number of steps required
+	 * @return
+	 */
+	public int getNumberOfSteps() {
+		return this.path.length();
 	}
 	
 }

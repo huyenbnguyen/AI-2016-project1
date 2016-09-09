@@ -13,7 +13,7 @@ public class Main {
 		//initialize
 		String algorithmType = "", line;
 		int startingVal = 0, targetVal = 0;
-		long time = 0;
+		double time = 0;
 		List<Action> actions = new ArrayList<Action>();
 
 		//read and store
@@ -22,7 +22,7 @@ public class Main {
 			algorithmType = br.readLine();
 			startingVal = Integer.parseInt(br.readLine());
 			targetVal = Integer.parseInt(br.readLine());
-			time = Long.parseLong(br.readLine());
+			time = Double.parseDouble(br.readLine());
 			while((line = br.readLine()) != null){
 				actions.add(new Action(line));
 			}
@@ -32,8 +32,7 @@ public class Main {
 		}
 
 		//print for testing purpose
-		printInputVariables(filePath, algorithmType, startingVal, targetVal, time);
-
+//		printInputVariables(filePath, algorithmType, startingVal, targetVal, time);
 
 		//select different search method based on input file
 		Algorithm sm = null;
@@ -45,13 +44,8 @@ public class Main {
 			sm = new GreedyBestFirstSearch(time, startingVal, targetVal, actions);	
 		}
 		ItrDpStateNodeStack searchResult = sm.search();
-		if (searchResult.isCutOff){
-			System.out.println("Search is cut off. No path found within time/depth limit.");
-		} else {
-			System.out.println("search result is as follows");
 			searchResult.printList();
-		printSearchResult(sm);
-		}
+			printSearchResult(sm);
 	}
 
 	private static void printInputVariables(String filePath, String algorithmType, int startingVal, int targetVal, double time) {
@@ -63,7 +57,9 @@ public class Main {
 	}
 
 	private static void printSearchResult(Algorithm sm){
-		System.out.println("Nodes expanded in this search: " + sm.getNumOfNodesExpanded());
+		System.out.println("Error: " + sm.error);
+		System.out.println("Number of steps required: "+ sm.getNumberOfSteps());
+		System.out.println("Nodes expanded: " + sm.getNumOfNodesExpanded());
 		System.out.println("Search depth reached in this search: " + sm.getSearchDepth());
 		System.out.println("Time spent in this search: " + sm.getTimeSpent() + " ms");
 	}

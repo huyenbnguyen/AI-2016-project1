@@ -3,18 +3,12 @@
 CS4341  
 Assignment #1  
 
-Due date:  9/9/16 @ 11:59 p.m.
+##Problem
+Start with an initial number, and use the smallest number of arithmetic operations to reach the target numeric value.  In the event the value is unreachable, your program should get as close as
+possible to the target value in the provided time. 
 
-For this assignment you will learn about basic search techniques. You will use iterative
-deepening and greedy (best­first) search on a set of arithmetic operators. Your goal is to start
-with an initial number, and use the smallest number of arithmetic operations to reach the target
-numeric value.  In the event the value is unreachable, your program should get as close as
-possible to the target value in the provided time. For this assignment, “close” is measured as
-the absolute difference between your program’s answer and the target value.
-
-##Reading in the search problem
-Your program should accept a command­line argument specifying the name of the file defining
-the search problem to work on. The file contains the following information, one entry per line:
+##Input Format
+The program should accept a command­line argument specifying the name of the file defining the search problem to work on. The file contains the following information, one entry per line:
 
 - Whether to use iterative deepening (iterative) or greedy best­first search (greedy)
 - A starting numeric value
@@ -33,14 +27,15 @@ iterative
 ­1  
 / 2  
 * 5  
-^ 2  
-For this problem, your program should use iterative deepening, start with the value of 4, and its
-goal is to reach a value of 11 within 2.5 seconds. Operators it is permitted to apply are adding 3
-to the current value, subtracting 1, dividing by 2, multiplying by 5, or squaring the number.
+^ 2 
+
+For this problem, your program should use iterative deepening, start with the value of 4, and its goal is to reach a value of 11 within 2.5 seconds. Operators it is permitted to apply are adding 3 to the current value, subtracting 1, dividing by 2, multiplying by 5, or squaring the number.
 ** All
 arithmetic operations have the same (unit) cost. **
 
-##What your program should output
+** Please do not leave more than one empty line at the end of file **
+
+##Program Output
 Your program should output the operators needed to reach the answer (or get as close as
 possible) in the following format:
 4 ^ 2 = 16  
@@ -51,9 +46,6 @@ Number of steps required: 3
 Search required:  0.3 seconds  
 Nodes expanded:  45  
 Maximum search depth:  3  
-Output should be displayed on the console, and follow the format shown in the example. It is in
-your interest to make life easy on the grader. (the example is meant to be illustrative; the exact
-numbers provided are probably not correct so don’t worry if your program has different ones)
 
 ##The search techniques you will use
 You should use iterative deepening and greedy (best­first) search for this assignment.

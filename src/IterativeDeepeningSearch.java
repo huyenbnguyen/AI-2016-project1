@@ -9,9 +9,11 @@ import java.util.List;
 public class IterativeDeepeningSearch extends Algorithm {
 	int maxDepth = Integer.MAX_VALUE;
 	long preTime = 0;
+	
 
-	public IterativeDeepeningSearch(long time, int startingNum, int targetNum, List<Action> actions) {
+	public IterativeDeepeningSearch(double time, int startingNum, int targetNum, List<Action> actions) {
 		super(time, startingNum, targetNum, actions);
+		this.path = new ItrDpStateNodeStack();
 	}
 
 	/**
@@ -46,6 +48,10 @@ public class IterativeDeepeningSearch extends Algorithm {
 		return enoughTime() && depth <= this.maxDepth;
 	}
 
+	/**
+	 * Estimate if there is enough time left to complete the search in the next level of depth
+	 * @return true if time is okay to resume by estimation, otherwise false 
+	 */
 	private boolean enoughTime(){
 		boolean hasEnoughTime;
 		if(this.preTime == 0){
@@ -79,6 +85,7 @@ public class IterativeDeepeningSearch extends Algorithm {
 	private ItrDpStateNodeStack recursiveDLS(StateNode currentState, List<Action> actions, int limit, ItrDpStateNodeStack visitedList){
 		visitedList.add(currentState);
 		if (problem.reachGoal(currentState.getCurrentState())) {
+			this.path = visitedList;
 			return visitedList; //success
 		} else if (limit == 0){
 			visitedList.setCutOff(true); //mark cutoff
@@ -111,5 +118,7 @@ public class IterativeDeepeningSearch extends Algorithm {
 			}
 		}
 	}
+
+
 
 }

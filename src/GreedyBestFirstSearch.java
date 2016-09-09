@@ -2,7 +2,7 @@ import java.util.List;
 
 public class GreedyBestFirstSearch extends Algorithm {
 	
-	public GreedyBestFirstSearch(long time, int startingNum, int targetNum, List<Action> actions) {
+	public GreedyBestFirstSearch(double time, int startingNum, int targetNum, List<Action> actions) {
 		super(time, startingNum, targetNum, actions);
 	}
 	
@@ -10,6 +10,12 @@ public class GreedyBestFirstSearch extends Algorithm {
 	public ItrDpStateNodeStack search() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public int getNumberOfSteps() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
