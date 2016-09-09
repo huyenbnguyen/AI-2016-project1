@@ -68,12 +68,13 @@ Search depth reached in this search: 2
 Time spent in this search: 2 ms
 
 ========== test 8 ===========
+search result is as follows
 Search is cut off. No path found within time/depth limit.
-Error: 0
+Error: 1
 Number of steps required: -1
 Nodes expanded: 3587219
 Search depth reached in this search: 14
-Time spent in this search: 1455 ms
+Time spent in this search: 1424 ms
 
 ========= test 9 ============
 4 + 3 = 7

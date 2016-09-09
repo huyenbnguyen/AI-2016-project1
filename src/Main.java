@@ -10,8 +10,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		//String filePath = args[0]; //get file path from command line
-		String filePath = "test16.txt";
+		String filePath = args[0]; //get file path from command line
 		//initialize
 		String algorithmType = "", line;
 		int startingVal = 0, targetVal = 0;
@@ -47,9 +46,6 @@ public class Main {
 		}
 		ItrDpStateNodeStack searchResult = sm.search();
 
-		if (searchResult.isCutOff){
-			System.out.println("Search is cut off.");
-		}
 		System.out.println("search result is as follows");
 		switch (algorithmType) {
 			case "iterative":
